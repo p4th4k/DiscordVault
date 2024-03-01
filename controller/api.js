@@ -7,6 +7,7 @@ const Channel = require("../discordClient/Channel");
 const { getInstanceOfChannel, ChannelRouter } = require("./ChannelRoutes");
 
 const File = require("../discordClient/File");
+const {getInstanceOfFile, FileRouter} = require("./FileRoutes")
 
 const client = new Client({
   intents: [
@@ -18,9 +19,13 @@ client.login(TOKEN);
 
 client.on("ready", () => {
   const channel = new Channel(client);
-  getInstanceOfChannel(channel);
+  const file = new File(client)
 
-  apiRouter.use("/", ChannelRouter);
+  getInstanceOfChannel(channel);
+  getInstanceOfFile(file);
+
+  apiRouter.use("/channels/", ChannelRouter);
+  apiRouter.use("/file/", FileRouter)
 });
 
 module.exports = apiRouter;

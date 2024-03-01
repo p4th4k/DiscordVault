@@ -6,7 +6,7 @@ const getInstanceOfChannel = (instance) => (channel = instance);
 
 getInstanceOfChannel();
 
-ChannelRouter.get("/channels", (req, res) => {
+ChannelRouter.get("/getChannels", (req, res) => {
   res.json(channel.getChannels());
 });
 
