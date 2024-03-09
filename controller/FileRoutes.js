@@ -22,6 +22,16 @@ FileRouter.post("/addFile", upload.single('file') ,async (req, res) => {
     res.json({msg: 'File successfully uploaded'})
 })
 
+FileRouter.get("/downloadFile", async (req, res) => {
+    const msgId = req.body.msgID;
+    const channelID = req.body.channelID;
+
+    let fileC = await file.downloadFile(msgId, channelID)
+
+    if(fileC) res.json({err: fileC})
+    res.json({msg: 'File successfully downloaded'})
+})
+
 FileRouter.delete("/deleteFile", async (req, res) => {
     const msgId = req.body.msgID;
     const channelID = req.body.channelID;

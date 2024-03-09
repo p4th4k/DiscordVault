@@ -1,4 +1,5 @@
 const fs = require("fs")
+const axios = require("axios")
 
 class File {
   #fileData;
@@ -75,6 +76,30 @@ class File {
           .catch(err => err)
         }
       }).catch(err => err)
+    }
+    else{
+      return "Channel Does not exist";
+    }
+  }
+
+  /**
+   * 
+   * @param {String} msgID 
+   * @param {String} channelID 
+   */
+  async downloadFile(msgID, channelID){
+    const channel = await this.client.channels.cache.get(channelID)
+
+    if(channel){
+      const message = await channel.messages.fetch(msgID)
+      if(message.attachments.size > 0){
+        message.attachments.forEach(async (attachment) => {
+          const response = await axios.get(attachment.url, {responseType: 'arraybuffer'})
+
+          const filePath = `./downloads/${attachment.name}`
+          fs.writeFileSync(filePath, Buffer.from(response.data))
+        })
+      }
     }
     else{
       return "Channel Does not exist";
