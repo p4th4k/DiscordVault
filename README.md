@@ -29,7 +29,7 @@ To use DiscordVault, follow these steps:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/DiscordVault.git 
+git clone https://github.com/p4th4k/DiscordVault.git
 ```
 
 2. Install dependencies:
